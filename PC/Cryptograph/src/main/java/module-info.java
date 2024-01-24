@@ -11,6 +11,8 @@ module ua.com.globallogic.cryptograph {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
+    requires com.fazecast.jSerialComm;
+
     opens ua.com.globallogic.cryptograph to javafx.fxml;
     exports ua.com.globallogic.cryptograph;
 }
