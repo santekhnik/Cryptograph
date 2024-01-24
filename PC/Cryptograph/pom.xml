@@ -154,7 +154,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>ua.com.globallogic.cryptograph/ua.com.globallogic.cryptograph.HelloApplication
+                            <mainClass>ua.com.globallogic.cryptograph/ua.com.globallogic.cryptograph.CryptographApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

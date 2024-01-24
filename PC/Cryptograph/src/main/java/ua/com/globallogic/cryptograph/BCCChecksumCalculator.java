@@ -1,3 +1,5 @@
+package ua.com.globallogic.cryptograph;
+
 public class BCCChecksumCalculator {
 
     // Функція для розрахунку BCC чек-суми для масиву байтів
@@ -12,7 +14,7 @@ public class BCCChecksumCalculator {
     }
 
     public static void main(String[] args) {
-        
+
         byte[] dataArray = "Hello, World!".getBytes(); // масив який буде на вході функції calculateBCC
         byte bccChecksum = calculateBCC(dataArray);
 
