@@ -27,7 +27,7 @@ This command checks the connection between the PC and the STM.
 
 ●	PC->STM sends the command 
 | Command | Specific 1            | BCC    |
-|---------|-----|-----|-----|-----|--------|
+|---------|-----------------------|--------|
 | 0x01    | 0x00 0x00 0x00 0x01   | 0x00   |
 
 ●	STM->PC sends a response
