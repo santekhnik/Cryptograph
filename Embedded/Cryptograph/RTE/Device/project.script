@@ -1,0 +1,6 @@
+load STM32F051R8Tx 
+project name STCubeGenerated 
+project toolchain "MDK-ARM V5" 
+project path "C:\Cryptograph_embedded\RTE\Device\STM32F051R8Tx\" 
+set tpl_path "C:\Users\vadim\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.1.1\MDK\CubeMX" 
+set dest_path "STM32F051R8Tx" 
