@@ -114,12 +114,19 @@ Description of how the algorithm works:
 The source text is split into words of 32 bits each, and a block is formed from the resulting words. The key is also split into 4 parts, consisting of words of 32 bits each, and a key array is formed. During one round of the algorithm, one word from the block is encrypted. After the words have been encrypted, the cycle ends and a new one begins. The number of cycles depends on the number of words and is equal to 6 + 52 /n , where  n is the number of words. The encryption of one word is as follows
 
 ●	The left neighbour is shifted by two bits to the left, and the right neighbour by five bits to the right. The resulting values are added bitwise modulo 2.
-●	A bit shift operation is performed on the left neighbour by three, and a bit shift operation is performed on the right neighbour by 4. The resulting values are subjected to a bitwise addition operation modulo 2
-●	The resulting numbers add up to 2^32 modulo.
-●	The constant δ, derived from the Golden Ratio (δ = (sqrt (5 - 1) * 2^31 = 2654435769 = 9E3779B9h) is multiplied by the cycle number (this was done to prevent simple attacks based on round symmetry).
-●	The number obtained in the previous paragraph is added bitwise modulo 2 with the right neighbour.
-●	The number obtained in step 4 is shifted bitwise to the right by 2, added bitwise modulo two with the round number, and the remainder of the division by 4 is found. Using the resulting number, select a key from the key array.
-●	The key selected in the previous round is added bitwise modulo 2 to the left neighbour.
-●	The numbers obtained in the previous and 4 paragraphs add up to 2^32 modulo.
-●	The numbers obtained in the previous and 3 paragraphs are added bit by bit modulo 2, this sum is added to the cipher word modulo 2^32.
 
+●	A bit shift operation is performed on the left neighbour by three, and a bit shift operation is performed on the right neighbour by 4. The resulting values are subjected to a bitwise addition operation modulo 2
+
+●	The resulting numbers add up to 2^32 modulo.
+
+●	The constant δ, derived from the Golden Ratio (δ = (sqrt (5 - 1) * 2^31 = 2654435769 = 9E3779B9h) is multiplied by the cycle number (this was done to prevent simple attacks based on round symmetry).
+
+●	The number obtained in the previous paragraph is added bitwise modulo 2 with the right neighbour.
+
+●	The number obtained in step 4 is shifted bitwise to the right by 2, added bitwise modulo two with the round number, and the remainder of the division by 4 is found. Using the resulting number, select a key from the key array.
+
+●	The key selected in the previous round is added bitwise modulo 2 to the left neighbour.
+
+●	The numbers obtained in the previous and 4 paragraphs add up to 2^32 modulo.
+
+●	The numbers obtained in the previous and 3 paragraphs are added bit by bit modulo 2, this sum is added to the cipher word modulo 2^32.
