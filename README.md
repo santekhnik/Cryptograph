@@ -11,7 +11,7 @@ Command list:
 	Example:
 | Command | Specific                         | BCC    |  
 |---------|----------------------------------|--------|
-| 0x05    |0x01  | 0x00	| 0x00 | 0x01        | 0x03 |   
+| 0x05    |0x01   0x00	 0x00    0x01        | 0x03 |   
 					
 
  1. 0x05 XOR 0x01 = 0x04 - comparing the first and second byte; 
@@ -22,20 +22,20 @@ Command list:
 ________________________________________
 
 
-
-________________________________________
-
 1.	Is device connected
 This command checks the connection between the PC and the STM.
 
 ●	PC->STM sends the command 
-| Command | Specific 1 | Specific 2 | Specific 3 | Specific 4 | BCC    |
-|---------|------------|------------|------------|------------|--------|
-| 0x01    | 0x00       | 0x00       | 0x00       | 0x01       | 0x00   |
+| Command | Specific 1            | BCC    |
+|---------|-----|-----|-----|-----|--------|
+| 0x01    | 0x00 0x00 0x00 0x01   | 0x00   |
 
 ●	STM->PC sends a response
+| Command | Response                                 | BCC  |  
+|---------|------------------------------------------|------|
+| 0x01    |0x00   0x00	 0x00    0x00  0x00  0x01    | 0x00 |   
 
-
+							
 If STM is connected, proceed to the next step.
 Otherwise, it displays the message: "STM is not connected".
 
@@ -50,29 +50,34 @@ This command sends a file from the PC to the STM for encryption and then returns
 ー combining blocks into output file
 
 ●	PC->STM sends the file to be encrypted
-Command	Specific	BCC
-0x02	0x00	0x00	0x00	0x01	0x01
+| Command | Specific                         | BCC  |  
+|---------|----------------------------------|------|
+| 0x02    |0x00	0x00	0x00	0x01         | 0x01 |   
+		
 
 ●	STM->PC reads the file encrypts and sends the encrypted file by sending the command
-Command	Response.	BCC
-0x02	0x00	0x00	0x00	0x00	0x00	0x01	0x01
+| Command | Response                                    | BCC  |  
+|---------|---------------------------------------------|------|
+| 0x02    |0x00	0x00	0x00	0x00	0x00	0x01    | 0x01 |   
 
 If the output is an encrypted file, we move on to the next step.
 Otherwise, it displays the message: "File could not be encrypted".
-________________________________________
-
 ________________________________________
 
 3.	Decrypt
 This command sends an encrypted file from the PC to the STM for decryption and then returns the decrypted file to the PC. Decryption functionality is similar to encryption.
 
 ●	PC->STM sends the file to be decrypted
-Command	Specific	BCC
-0x03	0x00	0x00	0x00	0x01	0x02
+| Command | Specific                         | BCC  |  
+|---------|----------------------------------|------|
+| 0x03    |0x00	0x00	0x00	0x01         | 0x02 |  
 
+		
 ●	STM->PC reads the file decrypts it and sends the decrypted file by sending the command
-Command	Response.	BCC
-0x03	0x00	0x00	0x00	0x00	0x00	0x01	0x02
+| Command | Response                                    | BCC  |  
+|---------|---------------------------------------------|------|
+| 0x03    |0x00	0x00	0x00	0x00	0x00	0x01    | 0x02 |  
+
 
 If the output is a decrypted file, we move on to the next step.
 Otherwise, it displays the message: "File could not be decrypted".
@@ -83,19 +88,21 @@ ________________________________________
 This command allows you to define the max block size
 
 ●	PC->STM sends a command requesting the maximum data size that can be processed
-Command	Specific	BCC
-0x04	0x00	0x00	0x00	0x01	0x03
+| Command | Specific                         | BCC  |  
+|---------|----------------------------------|------|
+| 0x04    |0x00	0x00	0x00	0x01         | 0x03 | 		
 
 ●	STM->PC sends a command with the maximum data size
-Command	Response.	BCC
-0x04	0x00	0x00	0x00	0x00	0x00	0x01	0x03
+| Command | Response                                    | BCC  |  
+|---------|---------------------------------------------|------|
+| 0x04    |0x00	0x00	0x00	0x00	0x00	0x01    | 0x03 | 
 
 The output is the maximum data size that can be processed.
 Otherwise, it displays a message: "Error".
 
 ________________________________________
 
-       Encryption algorithm
+Encryption Algorythm
 XXTEA - is a block cipher designed to correct weaknesses in the original Block TEA.Is a fast and secure encryption algorithm.
 
 It is different from the original XXTEA encryption algorithm. It encrypts and decrypts byte array instead of 32bit integer array, and the key is also the byte array.
