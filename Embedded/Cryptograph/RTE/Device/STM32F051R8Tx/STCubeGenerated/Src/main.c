@@ -18,7 +18,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
+#include <stdio.h>
+#define MX (z >> 5 ^ y << 2) + (y >> 3 ^ z << 4) ^ (sum ^ y) + (k[p & 3 ^ e] ^ z)
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -36,6 +37,37 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+void xxtea_encryption(uint32_t* v, uint32_t* k, size_t N) {
+    uint32_t z = v[N - 1];
+    uint32_t y = v[0];
+    uint32_t sum = 0;
+    uint32_t e = 0;
+    uint32_t delta = 0x9e3779b9;
+
+    uint32_t m = 0;
+    uint32_t p = 0;
+    uint32_t q = 0;
+
+    if (N > 1) {
+        // encoding
+        q = 6 + 52 / N;
+
+        while (q-- > 0) {
+            sum += delta;
+            e = sum >> 2 & 3;
+            for (p = 0; p < N - 1; p++) {
+                y = v[p + 1];
+                z = v[p] += MX;
+            }
+            y = v[0];
+            z = v[N - 1] += MX;
+        }
+    }
+        for (size_t i = 0; i < N; ++i) {
+        printf("v[%d] = %d\n", i, v[i]);
+
+    }
+}
 
 /* USER CODE END PM */
 
@@ -115,6 +147,11 @@ int main(void)
 	uint8_t testData[] = {0x01, 0x02, 0x03, 0x04, 0x05};
 	int length = 5;
   /* USER CODE END 2 */
+	 uint32_t v[3] = { 0x27736492, 0x23736492 ,0x23736493 };
+   uint32_t k [4] = {0x24735692 ,0x24735693 ,0x24735892,0x24335692};
+   size_t N = 3;
+
+   xxtea_encryption(v, k, N); 
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -122,10 +159,6 @@ int main(void)
   {
     /* USER CODE END WHILE */
 		
-		
-		
-		
-
     /* USER CODE BEGIN 3 */
 		uint8_t testResult = callculateChecksum(testData, length);
 		if(testResult == 0x0E){
