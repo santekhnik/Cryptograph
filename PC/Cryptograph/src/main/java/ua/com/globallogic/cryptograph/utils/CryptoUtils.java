@@ -1,6 +1,6 @@
 package ua.com.globallogic.cryptograph.utils;
 
-public class CryptoUtils {
+public final class CryptoUtils {
     private CryptoUtils() {
 
     }

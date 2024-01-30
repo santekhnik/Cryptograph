@@ -1,9 +1,10 @@
 package ua.com.globallogic.cryptograph;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ua.com.globallogic.cryptograph.utils.FXMLLoaderUtils;
 
 import java.io.IOException;
 
@@ -14,11 +15,13 @@ import java.io.IOException;
 public class CryptographApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        Parent root = FXMLLoaderUtils.getRoot();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(CryptographApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
+
+        stage.setTitle("Cryptograph");
+        stage.setScene(new Scene(root, 671, 483));
+
+
         stage.show();
     }
 

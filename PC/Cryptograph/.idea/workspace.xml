@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f851179f-aec4-430e-a1c2-3dfc77fb0922" name="Changes" comment="update project">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/utils/CryptoUtils.java" afterDir="false" />
+    <list default="true" id="f851179f-aec4-430e-a1c2-3dfc77fb0922" name="Changes" comment="update application design">
+      <change afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/controller/ControllerApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/utils/FXMLLoaderUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/CryptographApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/CryptographApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/utils/CryptoUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/utils/CryptoUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ua/com/globallogic/cryptograph/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ua/com/globallogic/cryptograph/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +27,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../.." value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -45,36 +56,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.BCCChecksumCalculator.executor&quot;: &quot;Run&quot;,
-    &quot;Application.CryptographApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;Q:/jSerialComm-2.10.4.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.46642134&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BCCChecksumCalculator.executor": "Run",
+    "Application.CryptographApplication.executor": "Run",
+    "Application.HelloApplication.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "PC",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "Q:/jSerialComm-2.10.4.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.46642134",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Application.BCCChecksumCalculator">
+}]]></component>
+  <component name="RunManager" selected="Application.CryptographApplication">
     <configuration name="BCCChecksumCalculator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ua.com.globallogic.cryptograph.BCCChecksumCalculator" />
       <module name="Cryptograph" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ua.com.globallogic.cryptograph.*" />
+          <option name="PATTERN" value="ua.com.globallogic.cryptograph.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -87,7 +98,7 @@
       <module name="Cryptograph" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ua.com.globallogic.cryptograph.*" />
+          <option name="PATTERN" value="ua.com.globallogic.cryptograph.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -97,8 +108,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.BCCChecksumCalculator" />
         <item itemvalue="Application.CryptographApplication" />
+        <item itemvalue="Application.BCCChecksumCalculator" />
       </list>
     </recent_temporary>
   </component>
@@ -126,6 +137,7 @@
       <workItem from="1706121551511" duration="4724000" />
       <workItem from="1706129237062" duration="88000" />
       <workItem from="1706129559091" duration="486000" />
+      <workItem from="1706629842459" duration="1919000" />
     </task>
     <task id="LOCAL-00001" summary="Setup-application-environment">
       <option name="closed" value="true" />
@@ -172,6 +184,7 @@
     <MESSAGE value="Setup-application-environment" />
     <MESSAGE value="Added new module: jSerialCommIntegration" />
     <MESSAGE value="update project" />
-    <option name="LAST_COMMIT_MESSAGE" value="update project" />
+    <MESSAGE value="update application design" />
+    <option name="LAST_COMMIT_MESSAGE" value="update application design" />
   </component>
 </project>
