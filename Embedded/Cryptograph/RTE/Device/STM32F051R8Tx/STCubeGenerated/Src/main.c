@@ -19,7 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include <stdio.h>
-#define MX (z >> 5 ^ y << 2) + (y >> 3 ^ z << 4) ^ (sum ^ y) + (k[p & 3 ^ e] ^ z)
+#define MX (right_shift >> 5 ^ left_shift << 2) + (left_shift >> 3 ^ right_shift << 4) ^ (sum ^ left_shift) + (key[p & 3 ^ e] ^ right_shift)
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -37,37 +37,39 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-void xxtea_encryption(uint32_t* v, uint32_t* k, size_t N) {
-    uint32_t z = v[N - 1];
-    uint32_t y = v[0];
-    uint32_t sum = 0;
-    uint32_t e = 0;
-    uint32_t delta = 0x9e3779b9;
+static void xxtea_encrypt(uint32_t* data, uint32_t* key, size_t* len) {
 
-    uint32_t m = 0;
-    uint32_t p = 0;
-    uint32_t q = 0;
+    uint32_t word_number = (uint32_t)(*len);
+    uint32_t cycle_round = 6 + 52 / word_number;
 
-    if (N > 1) {
-        // encoding
-        q = 6 + 52 / N;
+    uint32_t  sum = 0, e = 0, p = 0;
+    uint32_t right_shift = data[word_number - 1];
+    uint32_t left_shift = data [0];
 
-        while (q-- > 0) {
-            sum += delta;
-            e = sum >> 2 & 3;
-            for (p = 0; p < N - 1; p++) {
-                y = v[p + 1];
-                z = v[p] += MX;
-            }
-            y = v[0];
-            z = v[N - 1] += MX;
+    if (word_number < 1) return;
+
+    for (int i = 0; i < cycle_round; i++) {
+
+        sum += 0x9E3779B9; // Use the hexadecimal constant directly
+        e = sum >> 2 & 3;
+
+        for (p = 0; p < word_number - 1; p++) {
+
+            left_shift = data[p + 1];
+            right_shift = data[p] += MX;
         }
-    }
-        for (size_t i = 0; i < N; ++i) {
-        printf("v[%d] = %d\n", i, v[i]);
 
+        left_shift = data[0];
+        right_shift = data[word_number - 1] += MX;
     }
+		         for (size_t i = 0; i < word_number; ++i) {
+        printf("v[%d] = %d\n", i, data[i]);
+
+
 }
+}
+
+
 
 /* USER CODE END PM */
 
@@ -147,11 +149,14 @@ int main(void)
 	uint8_t testData[] = {0x01, 0x02, 0x03, 0x04, 0x05};
 	int length = 5;
   /* USER CODE END 2 */
-	 uint32_t v[3] = { 0x27736492, 0x23736492 ,0x23736493 };
-   uint32_t k [4] = {0x24735692 ,0x24735693 ,0x24735892,0x24335692};
-   size_t N = 3;
+	
+	
+	 uint32_t data[64];
+	 uint32_t key[4] = { 0x24735692 ,0x24735693 ,0x24735892,0x24335692 };
+	 size_t len =  sizeof(data) / sizeof(data[0]);
 
-   xxtea_encryption(v, k, N); 
+	 xxtea_encrypt(data, key, &len);
+
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
