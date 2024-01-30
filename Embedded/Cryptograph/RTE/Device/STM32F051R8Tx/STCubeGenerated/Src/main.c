@@ -42,10 +42,10 @@
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-#define UART_BUFFER_SIZE 10 // ?????? ?????? ??? ?????? ?????? ?? UART
 
-uint8_t uartData[UART_BUFFER_SIZE]; // ????? ??? ???????? ?????? ?? UART
-uint8_t uartDataTx[] = "hello"; // ?????? ??? ???????? ?? UART
+
+uint8_t uartDataRx[1]; 
+uint8_t uartDataTx[5] = "hello"; 
 
 /* USER CODE END PV */
 
@@ -54,9 +54,9 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 uint8_t calculateChecksum(uint8_t* data, int length);
-int UART_Send(uint8_t* data, uint8_t byte_count);
-int UART_Receive(uint8_t* data, uint8_t byte_count);
-void processReceivedData(uint8_t ReceivedData);
+HAL_StatusTypeDef UART_Send(uint8_t* data, uint8_t byte_count);
+HAL_StatusTypeDef UART_Receive(uint8_t* data, uint8_t byte_count);
+void processReceivedData(uint8_t* ReceivedData);
 
 /* USER CODE BEGIN PFP */
 
@@ -65,7 +65,6 @@ void processReceivedData(uint8_t ReceivedData);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-// ?????????? ??????? ??? ?????????? ??????????? ?????
 uint8_t calculateChecksum(uint8_t* data, int length){
     uint8_t bcc = 0;
     for(int i = 0; i < length; ++i){
@@ -74,23 +73,17 @@ uint8_t calculateChecksum(uint8_t* data, int length){
     return bcc;
 }
 
-// ?????????? ??????? ??? ???????? ?????? ?? UART
-int UART_Send(uint8_t* data, uint8_t byte_count) {
+HAL_StatusTypeDef UART_Send(uint8_t* data, uint8_t byte_count) {
     return HAL_UART_Transmit(&huart1, data, byte_count, HAL_MAX_DELAY);
 }
 
-// ?????????? ??????? ??? ?????? ?????? ?? UART
-int UART_Receive(uint8_t* data, uint8_t byte_count) {   
+HAL_StatusTypeDef UART_Receive(uint8_t* data, uint8_t byte_count) {   
     return HAL_UART_Receive(&huart1, data, byte_count, HAL_MAX_DELAY);
 }
 
-// ????????? ???????? ??????
-void processReceivedData(uint8_t ReceivedData)
+void processReceivedData(uint8_t* ReceivedData)
 {
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-    HAL_Delay(500);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-    HAL_Delay(500);
+    
 }
 
 /* USER CODE END 0 */
@@ -102,7 +95,7 @@ void processReceivedData(uint8_t ReceivedData)
 int main(void)
 {
     /* USER CODE BEGIN 1 */
-
+		uartDataRx[0] = 0;
     /* USER CODE END 1 */
 
     /* MCU Configuration--------------------------------------------------------*/
@@ -134,15 +127,19 @@ int main(void)
     {
         /* USER CODE END WHILE */
 
+			if( UART_Receive(uartDataRx, 1) == HAL_OK){
+					if(uartDataRx[0] == (uint8_t)'r'){
+				   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+			}
+					else if(uartDataRx[0] == (uint8_t)'k'){
+						HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+					}
+					else{}
+				}
+					
         /* USER CODE BEGIN 3 */
  
-				if(HAL_UART_Transmit(&huart1, uartDataTx, 5, HAL_MAX_DELAY) == HAL_OK){
-       
-          HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
-        HAL_Delay(1000);
-				HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-			HAL_Delay(1000);
-    }
+				
     /* USER CODE END 3 */
 }
 }

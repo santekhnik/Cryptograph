@@ -7,9 +7,9 @@ stcubegenerated/stm32f0xx_it.o: ..\Src\stm32f0xx_it.c ..\Inc\main.h \
   ..\Drivers\CMSIS\Device\ST\STM32F0xx\Include\stm32f051x8.h \
   ..\Drivers\CMSIS\Include\core_cm0.h \
   C:\Keil_v5\ARM\ARMCLANG\include\stdint.h \
-  C:\MY_PROJ_EMBEDDED\Embedded\Cryptograph\RTE\Device\STM32F051R8Tx\STCubeGenerated\Drivers\CMSIS\Include\cmsis_version.h \
-  C:\MY_PROJ_EMBEDDED\Embedded\Cryptograph\RTE\Device\STM32F051R8Tx\STCubeGenerated\Drivers\CMSIS\Include\cmsis_compiler.h \
-  C:\MY_PROJ_EMBEDDED\Embedded\Cryptograph\RTE\Device\STM32F051R8Tx\STCubeGenerated\Drivers\CMSIS\Include\cmsis_armclang.h \
+  C:\EMBEDDED_NEW_GIT_BRUNCH\Embedded\Cryptograph\RTE\Device\STM32F051R8Tx\STCubeGenerated\Drivers\CMSIS\Include\cmsis_version.h \
+  C:\EMBEDDED_NEW_GIT_BRUNCH\Embedded\Cryptograph\RTE\Device\STM32F051R8Tx\STCubeGenerated\Drivers\CMSIS\Include\cmsis_compiler.h \
+  C:\EMBEDDED_NEW_GIT_BRUNCH\Embedded\Cryptograph\RTE\Device\STM32F051R8Tx\STCubeGenerated\Drivers\CMSIS\Include\cmsis_armclang.h \
   C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h \
   C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h \
   ..\Drivers\CMSIS\Device\ST\STM32F0xx\Include\system_stm32f0xx.h \
