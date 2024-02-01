@@ -43,8 +43,9 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
-#define DATABLOCKSIZE 32
-uint8_t uartDataRx[DATABLOCKSIZE];  
+#define DATABLOCKSIZEBYTES 32
+uint8_t uartDataRx[DATABLOCKSIZEBYTES];  
+uint8_t uartDataTx[DATABLOCKSIZEBYTES];
 uint8_t numBlocks = 0;
 uint8_t allBytes = 0;
 /* USER CODE END PV */
@@ -83,7 +84,7 @@ HAL_StatusTypeDef UART_Receive(uint8_t* data, uint16_t byte_count) {
 
 void processReceivedData(uint8_t* ReceivedData)
 {
-    uint8_t checksum = calculateChecksum(ReceivedData, DATABLOCKSIZE);
+    uint8_t checksum = calculateChecksum(ReceivedData, DATABLOCKSIZEBYTES);
 		//I should add check
 }
 
@@ -119,7 +120,6 @@ int main(void)
     MX_USART1_UART_Init();
     /* USER CODE BEGIN 2 */
 		
-		
 
     /* USER CODE END 2 */
 
@@ -148,18 +148,30 @@ int main(void)
 					default: 
 					goto receiveNumBlocks;
 				}
+				uint8_t generalDataReceived[allBytes];
 				int counter = 0;
-				while(counter != allBytes){
-					if(UART_Receive(uartDataRx, DATABLOCKSIZE) == HAL_OK){
-
-					}
-					UART_Send(uartDataRx, DATABLOCKSIZE);
-					counter += 32;
-				}
+			while (counter < allBytes) {
+    if (UART_Receive(uartDataRx, DATABLOCKSIZEBYTES) == HAL_OK) {
+        for (int i = counter; (i < DATABLOCKSIZEBYTES + counter) && i < allBytes; ++i) {
+            generalDataReceived[i] = uartDataRx[i - counter];
+        }
+        counter += DATABLOCKSIZEBYTES;
+    } 
+}
+		counter = 0;
+	while (counter < allBytes){
+		for(int i = counter; (i < DATABLOCKSIZEBYTES + counter) && i < allBytes; ++i){
+			uartDataTx[i - counter] =  generalDataReceived[i];
+		}
+		if(UART_Send(uartDataTx, DATABLOCKSIZEBYTES) == HAL_OK){
+		counter += DATABLOCKSIZEBYTES;
+		}
+		
+	}
 				
     /* USER CODE END 3 */
 }
-}
+		}
 /**
   * @brief System Clock Configuration
   * @retval None
