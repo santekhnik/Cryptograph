@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f851179f-aec4-430e-a1c2-3dfc77fb0922" name="Changes" comment="update application design">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/controller/ControllerApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/utils/FXMLLoaderUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/testconnectionport/SerialPortConnectionTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/CryptographApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/CryptographApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/controller/ControllerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/controller/ControllerApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/utils/CryptoUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/utils/CryptoUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ua/com/globallogic/cryptograph/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ua/com/globallogic/cryptograph/hello-view.fxml" afterDir="false" />
     </list>
@@ -22,6 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -61,9 +60,18 @@
     "Application.BCCChecksumCalculator.executor": "Run",
     "Application.CryptographApplication.executor": "Run",
     "Application.HelloApplication.executor": "Run",
+    "Application.Test.executor": "Run",
+    "Application.YourClass.executor": "Run",
+    "Application.ua.com.globallogic.cryptograph.utils.Test.executor": "Run",
+    "JUnit.FileSelectionTest (1).executor": "Run",
+    "JUnit.FileSelectionTest.executor": "Run",
+    "JUnit.FileSelectionTest.testChooseFile.executor": "Run",
+    "JUnit.SerialPortConnectionTest.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "PC",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "Q:/jSerialComm-2.10.4.jar",
@@ -79,26 +87,21 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="ua.com.globallogic.cryptograph.utils.miscellaneous" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.CryptographApplication">
-    <configuration name="BCCChecksumCalculator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ua.com.globallogic.cryptograph.BCCChecksumCalculator" />
-      <module name="Cryptograph" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ua.com.globallogic.cryptograph.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="CryptographApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ua.com.globallogic.cryptograph.CryptographApplication" />
       <module name="Cryptograph" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ua.com.globallogic.cryptograph.controller.*" />
+          <option name="PATTERN" value="ua.com.globallogic.cryptograph.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -106,10 +109,91 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ua.com.globallogic.cryptograph.utils.miscellaneous.Test" />
+      <module name="Cryptograph" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ua.com.globallogic.cryptograph.utils.miscellaneous.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="YourClass" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ua.com.globallogic.cryptograph.utils.YourClass" />
+      <module name="Cryptograph" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ua.com.globallogic.cryptograph.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ua.com.globallogic.cryptograph.utils.Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ua.com.globallogic.cryptograph.utils.Test" />
+      <module name="Cryptograph" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ua.com.globallogic.cryptograph.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileSelectionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Cryptograph" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ua.com.globallogic.cryptograph.utils.miscellaneous.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ua.com.globallogic.cryptograph.utils.miscellaneous" />
+      <option name="MAIN_CLASS_NAME" value="ua.com.globallogic.cryptograph.utils.miscellaneous.FileSelectionTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileSelectionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Cryptograph" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ua.com.globallogic.cryptograph.utils.miscellaneous.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ua.com.globallogic.cryptograph.utils.miscellaneous" />
+      <option name="MAIN_CLASS_NAME" value="ua.com.globallogic.cryptograph.utils.miscellaneous.FileSelectionTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Test" />
+      <item itemvalue="Application.YourClass" />
+      <item itemvalue="Application.ua.com.globallogic.cryptograph.utils.Test" />
+      <item itemvalue="Application.CryptographApplication" />
+      <item itemvalue="JUnit.FileSelectionTest" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.CryptographApplication" />
-        <item itemvalue="Application.BCCChecksumCalculator" />
+        <item itemvalue="Application.ua.com.globallogic.cryptograph.utils.Test" />
+        <item itemvalue="Application.YourClass" />
+        <item itemvalue="Application.Test" />
+        <item itemvalue="JUnit.FileSelectionTest" />
       </list>
     </recent_temporary>
   </component>
@@ -138,6 +222,7 @@
       <workItem from="1706129237062" duration="88000" />
       <workItem from="1706129559091" duration="486000" />
       <workItem from="1706629842459" duration="1919000" />
+      <workItem from="1706861060466" duration="8260000" />
     </task>
     <task id="LOCAL-00001" summary="Setup-application-environment">
       <option name="closed" value="true" />

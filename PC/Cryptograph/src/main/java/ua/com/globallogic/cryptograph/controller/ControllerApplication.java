@@ -7,6 +7,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import ua.com.globallogic.cryptograph.utils.FileSelection;
+
+import java.io.File;
 
 public class ControllerApplication {
 
@@ -20,9 +25,15 @@ public class ControllerApplication {
     private Button disconnectButton;
 
     @FXML
+    private Button chooseFileButton;
+
+    @FXML
     private Label statusLabel;
 
     private SerialPort selectedPort;
+    private FileChooser fileChooser;
+    private FileSelection selectedFilePath = new FileSelection();
+
 
     @FXML
     private void initialize() {
@@ -39,6 +50,19 @@ public class ControllerApplication {
         });
 
         disconnectButton.setOnAction(e -> disconnectPort());
+
+        fileChooser = new FileChooser();
+    }
+
+    @FXML
+    private void chooseFile() {
+        configureFileChooser(fileChooser);
+        Stage stage = (Stage) chooseFileButton.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            selectedFilePath.setFileSelection(selectedFile.getAbsoluteFile());
+            statusLabel.setText("Status: Selected File: " + selectedFilePath);
+        }
     }
 
     private ObservableList<String> getAvailablePorts() {
@@ -79,5 +103,12 @@ public class ControllerApplication {
     private void disableConnectDisconnectButtons(boolean isConnected) {
         connectButton.setDisable(isConnected);
         disconnectButton.setDisable(!isConnected);
+    }
+
+    private static void configureFileChooser(FileChooser fileChooser) {
+        fileChooser.setTitle("Select a File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.txt")
+        );
     }
 }

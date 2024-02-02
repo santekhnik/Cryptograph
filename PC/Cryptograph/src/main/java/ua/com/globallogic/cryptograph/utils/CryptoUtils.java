@@ -1,5 +1,6 @@
 package ua.com.globallogic.cryptograph.utils;
 
+
 public final class CryptoUtils {
     private CryptoUtils() {
 
@@ -7,7 +8,7 @@ public final class CryptoUtils {
     //Task 1
     /*
      * Implement functionality for encryption. This should include:
-     * 1)file selection
+     *  +++1)file selection
      * 2)reading file by blocks
      * 3)sending blocks to COM port
      * 4)receiving encrypted blocks
@@ -18,7 +19,7 @@ public final class CryptoUtils {
     /*
      *Implement functionality for decryption This should include:
      *
-     * 1)file selection
+     *  +++ 1)file selection
      * 2)reading file by blocks
      * 3)sending blocks to COM port
      * 4)receiving decrypted blocks
