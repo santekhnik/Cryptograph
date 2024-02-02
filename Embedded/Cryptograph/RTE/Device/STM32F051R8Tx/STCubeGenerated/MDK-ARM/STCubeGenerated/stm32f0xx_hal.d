@@ -8,9 +8,9 @@ stcubegenerated/stm32f0xx_hal.o: \
   ..\Drivers\CMSIS\Device\ST\STM32F0xx\Include\stm32f051x8.h \
   ..\Drivers\CMSIS\Include\core_cm0.h \
   D:\Utilities\Keil\ARM\ARMCLANG\include\stdint.h \
-  D:\programming\Keil\PCC\Cryptograph\Embedded\Cryptograph\RTE\Device\STM32F051R8Tx\STCubeGenerated\Drivers\CMSIS\Include\cmsis_version.h \
-  D:\programming\Keil\PCC\Cryptograph\Embedded\Cryptograph\RTE\Device\STM32F051R8Tx\STCubeGenerated\Drivers\CMSIS\Include\cmsis_compiler.h \
-  D:\programming\Keil\PCC\Cryptograph\Embedded\Cryptograph\RTE\Device\STM32F051R8Tx\STCubeGenerated\Drivers\CMSIS\Include\cmsis_armclang.h \
+  D:\programming\Keil\encryption\Cryptograph\Embedded\Cryptograph\RTE\Device\STM32F051R8Tx\STCubeGenerated\Drivers\CMSIS\Include\cmsis_version.h \
+  D:\programming\Keil\encryption\Cryptograph\Embedded\Cryptograph\RTE\Device\STM32F051R8Tx\STCubeGenerated\Drivers\CMSIS\Include\cmsis_compiler.h \
+  D:\programming\Keil\encryption\Cryptograph\Embedded\Cryptograph\RTE\Device\STM32F051R8Tx\STCubeGenerated\Drivers\CMSIS\Include\cmsis_armclang.h \
   D:\Utilities\Keil\ARM\ARMCLANG\include\arm_compat.h \
   D:\Utilities\Keil\ARM\ARMCLANG\include\arm_acle.h \
   ..\Drivers\CMSIS\Device\ST\STM32F0xx\Include\system_stm32f0xx.h \

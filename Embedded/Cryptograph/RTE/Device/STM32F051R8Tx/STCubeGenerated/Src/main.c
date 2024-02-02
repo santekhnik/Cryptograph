@@ -72,6 +72,31 @@ static void xxtea_encrypt(uint32_t* data, uint32_t* key, size_t* len) {
 
 
 /* USER CODE END PM */
+static void xxtea_decrypt(uint32_t* data, uint32_t* key, size_t* len) {
+    // Some initialization
+    uint32_t word_number = (uint32_t)(*len);
+    uint32_t q = 6 + 52 / word_number;
+    uint32_t sum = q * 0x9E3779B9;
+    uint32_t right_shift = data[word_number - 1];
+    uint32_t left_shift = data[0];
+    uint32_t p;
+	
+
+    // Loop for multiple rounds
+    while (sum != 0) {
+        uint32_t e = sum >> 2 & 3;
+        for (p = word_number - 1; p > 0; p--) {
+            right_shift = data[p - 1];
+            left_shift = data[p] -= MX;
+        }
+        right_shift = data[word_number - 1];
+        left_shift = data[0] -= MX;
+        sum -= 0x9E3779B9;
+
+    }
+}
+
+
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
