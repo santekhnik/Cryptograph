@@ -47,7 +47,7 @@ UART_HandleTypeDef huart1;
 #define MX (right_shift >> 5 ^ left_shift << 2) + (left_shift >> 3 ^ right_shift << 4) ^ (sum ^ left_shift) + (key[p & 3 ^ e] ^ right_shift)
 uint8_t uartDataRx[DATABLOCKSIZEBYTES];  
 uint8_t uartDataTx[DATABLOCKSIZEBYTES];
-uint8_t numBlocks[2] = "  ";
+uint8_t numBlocks[1];
 uint8_t allBytes = 0;
 /* USER CODE END PV */
 uint32_t encryption_key[4] = {0x12345678, 0xabcdef01, 0x87654321, 0xfedcba98};
@@ -181,11 +181,11 @@ int main(void)
 					
         /* USER CODE BEGIN 3 */
 			receiveNumBlocks:
-				UART_Receive(numBlocks, 2);
-				switch(numBlocks[1]){
+				UART_Receive(numBlocks, 1);
+				switch(numBlocks[0]){
 					case (uint8_t)'a':
 						allBytes = 32;
-					 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
 					break;
 					case (uint8_t)'b':
 						allBytes = 64;
@@ -199,7 +199,7 @@ int main(void)
 					default: 
 					goto receiveNumBlocks;
 				}
-				uint8_t okSend[] = "\nGreatJob!";
+				uint8_t okSend[] = "GreatJob!";
 				UART_Send(okSend, sizeof(okSend));
 				
 				uint8_t generalDataReceived[allBytes];
