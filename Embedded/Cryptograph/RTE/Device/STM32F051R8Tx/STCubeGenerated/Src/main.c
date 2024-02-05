@@ -44,12 +44,13 @@ UART_HandleTypeDef huart1;
 /* USER CODE BEGIN PV */
 
 #define DATABLOCKSIZEBYTES 32
+#define MX (right_shift >> 5 ^ left_shift << 2) + (left_shift >> 3 ^ right_shift << 4) ^ (sum ^ left_shift) + (key[p & 3 ^ e] ^ right_shift)
 uint8_t uartDataRx[DATABLOCKSIZEBYTES];  
 uint8_t uartDataTx[DATABLOCKSIZEBYTES];
-uint8_t numBlocks = 0;
+uint8_t numBlocks[1] = " ";
 uint8_t allBytes = 0;
 /* USER CODE END PV */
-
+uint32_t encryption_key[4] = {0x12345678, 0xabcdef01, 0x87654321, 0xfedcba98};
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -58,7 +59,7 @@ uint8_t calculateChecksum(uint8_t* data, uint16_t length);
 HAL_StatusTypeDef UART_Send(uint8_t* data, uint16_t byte_count);
 HAL_StatusTypeDef UART_Receive(uint8_t* data, uint16_t byte_count);
 void processReceivedData(uint8_t* ReceivedData);
-
+static void xxtea_encrypt(uint32_t* data, uint32_t* key, size_t* len);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -86,6 +87,32 @@ void processReceivedData(uint8_t* ReceivedData)
 {
     uint8_t checksum = calculateChecksum(ReceivedData, DATABLOCKSIZEBYTES);
 		//I should add check
+}
+static void xxtea_encrypt(uint32_t* data, uint32_t* key, size_t* len) {
+
+    uint32_t word_number = (uint32_t)(*len);
+    uint32_t cycle_round = 6 + 52 / word_number;
+
+    uint32_t  sum = 0, e = 0, p = 0;
+    uint32_t right_shift = data[word_number - 1];
+    uint32_t left_shift = data [0];
+
+    if (word_number < 1) return;
+
+    for (int i = 0; i < cycle_round; i++) {
+
+        sum += 0x9E3779B9; // Use the hexadecimal constant directly
+        e = sum >> 2 & 3;
+
+        for (p = 0; p < word_number - 1; p++) {
+
+            left_shift = data[p + 1];
+            right_shift = data[p] += MX;
+        }
+
+        left_shift = data[0];
+        right_shift = data[word_number - 1] += MX;
+    }
 }
 
 /* USER CODE END 0 */
@@ -120,9 +147,8 @@ int main(void)
     MX_USART1_UART_Init();
     /* USER CODE BEGIN 2 */
 		
-
+ HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
     /* USER CODE END 2 */
-
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     while (1)
@@ -131,30 +157,39 @@ int main(void)
 					
         /* USER CODE BEGIN 3 */
 			receiveNumBlocks:
-				UART_Receive(&numBlocks, 1);
-				switch(numBlocks){
-					case 1:
+				UART_Receive(numBlocks, 1);
+				switch(numBlocks[0]){
+					case (uint8_t)'a':
 						allBytes = 32;
+					 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
 					break;
-					case 2:
+					case (uint8_t)'b':
 						allBytes = 64;
 					break;
-					case 3:
+					case (uint8_t)'c':
 						allBytes = 96;
 					break;
-					case 4:
+					case (uint8_t)'d':
 						allBytes = 128;
 					break;
 					default: 
 					goto receiveNumBlocks;
 				}
+				uint8_t okSend[] = "Great";
+				UART_Send(okSend, 5);
+				
 				uint8_t generalDataReceived[allBytes];
 				int counter = 0;
 			while (counter < allBytes) {
     if (UART_Receive(uartDataRx, DATABLOCKSIZEBYTES) == HAL_OK) {
+			
+				size_t data_length_words = sizeof(uartDataRx) / sizeof(uint32_t);
+				xxtea_encrypt((uint32_t*)uartDataRx, encryption_key, &data_length_words);
+			
         for (int i = counter; (i < DATABLOCKSIZEBYTES + counter) && i < allBytes; ++i) {
             generalDataReceived[i] = uartDataRx[i - counter];
         }
+				
         counter += DATABLOCKSIZEBYTES;
     } 
 }
@@ -164,9 +199,8 @@ int main(void)
 			uartDataTx[i - counter] =  generalDataReceived[i];
 		}
 		if(UART_Send(uartDataTx, DATABLOCKSIZEBYTES) == HAL_OK){
-		counter += DATABLOCKSIZEBYTES;
 		}
-		
+		counter += DATABLOCKSIZEBYTES;
 	}
 				
     /* USER CODE END 3 */
