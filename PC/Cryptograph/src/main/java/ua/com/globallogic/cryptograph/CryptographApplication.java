@@ -1,5 +1,6 @@
 package ua.com.globallogic.cryptograph;
 
+
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,6 +16,7 @@ import java.io.IOException;
 public class CryptographApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        Application.setUserAgentStylesheet(STYLESHEET_CASPIAN);
         Parent root = FXMLLoaderUtils.getRoot();
 
 

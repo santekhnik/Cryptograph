@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f851179f-aec4-430e-a1c2-3dfc77fb0922" name="Changes" comment="update application design">
-      <change afterPath="$PROJECT_DIR$/src/test/java/testconnectionport/SerialPortConnectionTest.java" afterDir="false" />
+    <list default="true" id="f851179f-aec4-430e-a1c2-3dfc77fb0922" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/controller/ControllerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/controller/ControllerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/utils/CryptoUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/utils/CryptoUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/CryptographApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/CryptographApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ua/com/globallogic/cryptograph/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ua/com/globallogic/cryptograph/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,38 +53,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.BCCChecksumCalculator.executor": "Run",
-    "Application.CryptographApplication.executor": "Run",
-    "Application.HelloApplication.executor": "Run",
-    "Application.Test.executor": "Run",
-    "Application.YourClass.executor": "Run",
-    "Application.ua.com.globallogic.cryptograph.utils.Test.executor": "Run",
-    "JUnit.FileSelectionTest (1).executor": "Run",
-    "JUnit.FileSelectionTest.executor": "Run",
-    "JUnit.FileSelectionTest.testChooseFile.executor": "Run",
-    "JUnit.SerialPortConnectionTest.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "PC",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "Q:/jSerialComm-2.10.4.jar",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.46642134",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.BCCChecksumCalculator.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CryptographApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.YourClass.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ua.com.globallogic.cryptograph.utils.Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CheckSumTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FileSelectionTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FileSelectionTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FileSelectionTest.testChooseFile.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SerialPortConnectionTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Test.test.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Cryptograph [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Cryptograph [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Cryptograph [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Cryptograph [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Cryptograph [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Cryptograph [verify].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;PC&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;Q:/jSerialComm-2.10.4.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.46642134&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -95,26 +101,13 @@
       <recent name="ua.com.globallogic.cryptograph.utils.miscellaneous" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CryptographApplication">
+  <component name="RunManager" selected="JUnit.CheckSumTest.test">
     <configuration name="CryptographApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ua.com.globallogic.cryptograph.CryptographApplication" />
       <module name="Cryptograph" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="ua.com.globallogic.cryptograph.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ua.com.globallogic.cryptograph.utils.miscellaneous.Test" />
-      <module name="Cryptograph" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ua.com.globallogic.cryptograph.utils.miscellaneous.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -148,6 +141,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CheckSumTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Cryptograph" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="testconnectionport.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="testconnectionport" />
+      <option name="MAIN_CLASS_NAME" value="testconnectionport.CheckSumTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FileSelectionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Cryptograph" />
       <extension name="coverage">
@@ -164,36 +173,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FileSelectionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SerialPortConnectionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Cryptograph" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ua.com.globallogic.cryptograph.utils.miscellaneous.*" />
+          <option name="PATTERN" value="testconnectionport.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ua.com.globallogic.cryptograph.utils.miscellaneous" />
-      <option name="MAIN_CLASS_NAME" value="ua.com.globallogic.cryptograph.utils.miscellaneous.FileSelectionTest" />
-      <option name="METHOD_NAME" value="" />
+      <option name="PACKAGE_NAME" value="testconnectionport" />
+      <option name="MAIN_CLASS_NAME" value="testconnectionport.SerialPortConnectionTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Test" />
       <item itemvalue="Application.YourClass" />
       <item itemvalue="Application.ua.com.globallogic.cryptograph.utils.Test" />
       <item itemvalue="Application.CryptographApplication" />
       <item itemvalue="JUnit.FileSelectionTest" />
+      <item itemvalue="JUnit.CheckSumTest.test" />
+      <item itemvalue="JUnit.SerialPortConnectionTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CheckSumTest.test" />
         <item itemvalue="Application.CryptographApplication" />
+        <item itemvalue="JUnit.SerialPortConnectionTest" />
         <item itemvalue="Application.ua.com.globallogic.cryptograph.utils.Test" />
         <item itemvalue="Application.YourClass" />
-        <item itemvalue="Application.Test" />
-        <item itemvalue="JUnit.FileSelectionTest" />
       </list>
     </recent_temporary>
   </component>
@@ -222,7 +231,11 @@
       <workItem from="1706129237062" duration="88000" />
       <workItem from="1706129559091" duration="486000" />
       <workItem from="1706629842459" duration="1919000" />
-      <workItem from="1706861060466" duration="8260000" />
+      <workItem from="1706861060466" duration="13300000" />
+      <workItem from="1706915512357" duration="76000" />
+      <workItem from="1707056685756" duration="13305000" />
+      <workItem from="1707099288984" duration="193000" />
+      <workItem from="1707134246629" duration="3518000" />
     </task>
     <task id="LOCAL-00001" summary="Setup-application-environment">
       <option name="closed" value="true" />
@@ -248,7 +261,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706127491596</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update">
+      <option name="closed" value="true" />
+      <created>1706889974432</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706889974432</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,6 +291,7 @@
     <MESSAGE value="Added new module: jSerialCommIntegration" />
     <MESSAGE value="update project" />
     <MESSAGE value="update application design" />
-    <option name="LAST_COMMIT_MESSAGE" value="update application design" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
 </project>
