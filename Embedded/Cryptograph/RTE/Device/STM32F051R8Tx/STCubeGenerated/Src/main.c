@@ -1,112 +1,56 @@
-/**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2024 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
-
-/* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include <string.h>
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
+#include <stdint.h>
+#include "stm32f0xx_hal.h"
 
-/* USER CODE END Includes */
-
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
-
-/* USER CODE END PTD */
-
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-
-/* USER CODE END PD */
-
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
-
-/* USER CODE BEGIN PV */
-
-#define DATABLOCKSIZEBYTES 32
 #define MX (right_shift >> 5 ^ left_shift << 2) + (left_shift >> 3 ^ right_shift << 4) ^ (sum ^ left_shift) + (key[p & 3 ^ e] ^ right_shift)
-uint8_t uartDataRx[DATABLOCKSIZEBYTES];  
-uint8_t uartDataTx[DATABLOCKSIZEBYTES];
-uint8_t numBlocks[1];
-uint8_t allBytes = 0;
-/* USER CODE END PV */
-uint32_t encryption_key[4] = {0x12345678, 0xabcdef01, 0x87654321, 0xfedcba98};
-/* Private function prototypes -----------------------------------------------*/
+#define DATABLOCKSIZEBYTES 32
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
-uint8_t calculateChecksum(uint8_t* data, uint16_t length);
+uint8_t calculateChecksum(uint8_t* data, uint8_t length);
+void processReceivedData(uint8_t* ReceivedData);
 HAL_StatusTypeDef UART_Send(uint8_t* data, uint16_t byte_count);
 HAL_StatusTypeDef UART_Receive(uint8_t* data, uint16_t byte_count);
-void processReceivedData(uint8_t* ReceivedData);
-static void xxtea_encrypt(uint32_t* data, uint32_t* key, size_t* len);
-static void xxtea_decrypt(uint32_t* data, uint32_t* key, size_t* len);
-/* USER CODE BEGIN PFP */
+static void xxtea_encrypt(uint8_t* data, uint8_t* key, size_t* len);
+static void xxtea_decrypt(uint8_t* data, uint8_t* key, size_t* len);
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_USART1_UART_Init(void);
 
-/* USER CODE END PFP */
-
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
-
-uint8_t calculateChecksum(uint8_t* data, uint16_t length){
+uint8_t calculateChecksum(uint8_t* data, uint8_t length){
     uint8_t bcc = 0;
     for(int i = 0; i < length; ++i){
         bcc ^= data[i];
     }
     return bcc;
 }
-
-HAL_StatusTypeDef UART_Send(uint8_t* data, uint16_t byte_count) { 
+HAL_StatusTypeDef UART_Send(uint8_t* data, uint16_t byte_count)
+{
     return HAL_UART_Transmit(&huart1, data, byte_count, HAL_MAX_DELAY);
 }
-
-HAL_StatusTypeDef UART_Receive(uint8_t* data, uint16_t byte_count) {   
+HAL_StatusTypeDef UART_Receive(uint8_t* data, uint16_t byte_count)
+{
     return HAL_UART_Receive(&huart1, data, byte_count, HAL_MAX_DELAY);
 }
 
-void processReceivedData(uint8_t* ReceivedData)
-{
-    uint8_t checksum = calculateChecksum(ReceivedData, DATABLOCKSIZEBYTES);
-		//I should add check
-}
-static void xxtea_encrypt(uint32_t* data, uint32_t* key, size_t* len) {
+static void xxtea_encrypt(uint8_t* data, uint8_t* key, size_t* len) {
 
-    uint32_t word_number = (uint32_t)(*len);
-    uint32_t cycle_round = 6 + 52 / word_number;
+    uint8_t word_number = (uint8_t)(*len);
+    uint8_t cycle_round = 6 + 52 / word_number;
 
-    uint32_t  sum = 0, e = 0, p = 0;
-    uint32_t right_shift = data[word_number - 1];
-    uint32_t left_shift = data [0];
+    uint8_t sum = 0, e = 0, p = 0;
+    uint8_t right_shift = data[word_number - 1];
+    uint8_t left_shift = data[0];
 
     if (word_number < 1) return;
 
     for (int i = 0; i < cycle_round; i++) {
-
-        sum += 0x9E3779B9; // Use the hexadecimal constant directly
+        sum += 0x11;
         e = sum >> 2 & 3;
 
         for (p = 0; p < word_number - 1; p++) {
-
             left_shift = data[p + 1];
             right_shift = data[p] += MX;
         }
@@ -115,134 +59,109 @@ static void xxtea_encrypt(uint32_t* data, uint32_t* key, size_t* len) {
         right_shift = data[word_number - 1] += MX;
     }
 }
-static void xxtea_decrypt(uint32_t* data, uint32_t* key, size_t* len) {
-    // Some initialization
-    uint32_t word_number = (uint32_t)(*len);
-    uint32_t q = 6 + 52 / word_number;
-    uint32_t sum = q * 0x9E3779B9;
-    uint32_t right_shift = data[word_number - 1];
-    uint32_t left_shift = data[0];
-    uint32_t p;
-	
+static void xxtea_decrypt(uint8_t* data, uint8_t* key, size_t* len) {
+    uint8_t word_number = (uint8_t)(*len);
+    uint8_t q = 6 + 52 / word_number;
+    uint8_t sum = q * 0x11;
+    uint8_t right_shift = data[word_number - 1];
+    uint8_t left_shift = data[0];
+    uint8_t p;
 
-    // Loop for multiple rounds
     while (sum != 0) {
-        uint32_t e = sum >> 2 & 3;
+        uint8_t e = sum >> 2 & 3;
         for (p = word_number - 1; p > 0; p--) {
             right_shift = data[p - 1];
             left_shift = data[p] -= MX;
         }
         right_shift = data[word_number - 1];
         left_shift = data[0] -= MX;
-        sum -= 0x9E3779B9;
-
+        sum -= 0x11;
     }
 }
 
 
-
-/* USER CODE END 0 */
-
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
 int main(void)
 {
-    /* USER CODE BEGIN 1 */
-    /* USER CODE END 1 */
-
-    /* MCU Configuration--------------------------------------------------------*/
-
-    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-    HAL_Init();
-
-    /* USER CODE BEGIN Init */
-
-    /* USER CODE END Init */
-
-    /* Configure the system clock */
-    SystemClock_Config();
-
-    /* USER CODE BEGIN SysInit */
-
-    /* USER CODE END SysInit */
-
-    /* Initialize all configured peripherals */
-    MX_GPIO_Init();
-    MX_USART1_UART_Init();
-    /* USER CODE BEGIN 2 */
-    /* USER CODE END 2 */
-    /* Infinite loop */
-    /* USER CODE BEGIN WHILE */
-    while (1)
-    {
-        /* USER CODE END WHILE */
-					
-        /* USER CODE BEGIN 3 */
-			receiveNumBlocks:
-				UART_Receive(numBlocks, 1);
-				switch(numBlocks[0]){
-					case (uint8_t)'a':
+	HAL_Init(); 
+	SystemClock_Config(); 
+	MX_GPIO_Init(); 
+	MX_USART1_UART_Init(); 
+	//USER CODE
+	uint8_t blocksAndOption[2];
+	uint8_t allBytes = 0;
+	uint8_t uartDataRx[DATABLOCKSIZEBYTES];
+	uint8_t uartDataTx[DATABLOCKSIZEBYTES];
+	uint8_t key[4] = { 0x92, 0x93, 0x92, 0x92 };
+	uint8_t okSend[2] = "Ok";
+	uint8_t badSend[2] = "No";
+	uint8_t answer1[11] = " Encrypted ";
+	uint8_t answer2[11] = " Decrypted ";
+	uint8_t answer3[12] = " Sending... ";
+	size_t len = sizeof(uartDataRx) / sizeof(uint8_t);
+	
+	while(1) {
+		receiveBlocksAndOption:
+			UART_Receive(blocksAndOption, 2);
+			switch( blocksAndOption[1]){
+				case (uint8_t)'a':
 						allBytes = 32;
-					break;
-					case (uint8_t)'b':
+				break;
+				case (uint8_t)'b':
 						allBytes = 64;
-					break;
-					case (uint8_t)'c':
+				break;
+				case (uint8_t)'c':
 						allBytes = 96;
-					break;
-					case (uint8_t)'d':
+				break;
+				case (uint8_t)'d':
 						allBytes = 128;
-					break;
-					default: 
-					goto receiveNumBlocks;
-				}
-				uint8_t okSend[] = "GreatJob!";
-				UART_Send(okSend, sizeof(okSend));
+				break;
+				default: 
+					UART_Send(badSend, sizeof(badSend));
+					memset(blocksAndOption, 0, 2);
+					goto receiveBlocksAndOption;
 				
-				uint8_t generalDataReceived[allBytes];
-				int counter = 0;
-			while (counter < allBytes) {
-    if (UART_Receive(uartDataRx, DATABLOCKSIZEBYTES) == HAL_OK) {
-				size_t data_length_words = sizeof(uartDataRx) / sizeof(uint32_t);
-			  if(numBlocks[0] == (uint8_t)'l'){
-				xxtea_encrypt((uint32_t*)uartDataRx, encryption_key, &data_length_words);
 				}
-				else if(numBlocks[0] == (uint8_t)'u'){
-					xxtea_decrypt((uint32_t*)uartDataRx, encryption_key, &data_length_words);
-				}
-        for (int i = counter; (i < DATABLOCKSIZEBYTES + counter) && i < allBytes; ++i) {
-            generalDataReceived[i] = uartDataRx[i - counter];
-        }
-				
-        counter += DATABLOCKSIZEBYTES;
-    } 
-}
+		uint8_t generalDataReceived[allBytes];
+		UART_Send(okSend, sizeof(okSend));
+		int counter = 0;
+		while (counter < allBytes) {
+			UART_Receive(uartDataRx, DATABLOCKSIZEBYTES);
+			if (blocksAndOption[0] == 'l') {
+				xxtea_encrypt(uartDataRx, key, &len);
+				UART_Send(answer1, sizeof(answer1));
+			}
+			else if (blocksAndOption[0] == 'u') {
+				xxtea_decrypt(uartDataRx, key, &len);
+				UART_Send(answer2, sizeof(answer2));
+			}
+			for (int i = counter; i < DATABLOCKSIZEBYTES + counter && i < allBytes; ++i) {
+				generalDataReceived[i] = uartDataRx[i - counter];
+		}
+			memset(uartDataRx, 0, DATABLOCKSIZEBYTES);
+			counter += DATABLOCKSIZEBYTES;
+		}
+		UART_Send(answer3, sizeof(answer3));
 		counter = 0;
-	while (counter < allBytes){
-		for(int i = counter; (i < DATABLOCKSIZEBYTES + counter) && i < allBytes; ++i){
-			uartDataTx[i - counter] =  generalDataReceived[i];
+		while (counter < allBytes){
+			memset(uartDataTx, 0, DATABLOCKSIZEBYTES);
+			for(int i = counter; i < DATABLOCKSIZEBYTES + counter && i < allBytes; ++i){
+				uartDataTx[i - counter] =  generalDataReceived[i];
 		}
-		if(UART_Send(uartDataTx, DATABLOCKSIZEBYTES) == HAL_OK){
+			UART_Send(uartDataTx, DATABLOCKSIZEBYTES);
+			counter += DATABLOCKSIZEBYTES;
 		}
-		counter += DATABLOCKSIZEBYTES;
 	}
-				
-    /* USER CODE END 3 */
 }
-		}
-/**
-  * @brief System Clock Configuration
-  * @retval None
-  */
+
+    
+    
 void SystemClock_Config(void)
 {
     RCC_OscInitTypeDef RCC_OscInitStruct = {0};
     RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
     RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
-    /** Initializes the RCC Oscillators according to the specified parameters
+/* Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
     RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
@@ -254,7 +173,7 @@ void SystemClock_Config(void)
         Error_Handler();
     }
 
-    /** Initializes the CPU, AHB and APB buses clocks
+    /* Initializes the CPU, AHB and APB buses clocks
   */
     RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK |
                                    RCC_CLOCKTYPE_PCLK1;
@@ -274,7 +193,7 @@ void SystemClock_Config(void)
     }
 }
 
-/**
+/*
   * @brief USART1 Initialization Function
   * @param None
   * @retval None
@@ -308,7 +227,7 @@ static void MX_USART1_UART_Init(void)
     /* USER CODE END USART1_Init 2 */
 }
 
-/**
+/*
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -341,7 +260,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE END 4 */
 
-/**
+/*
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
@@ -357,7 +276,7 @@ void Error_Handler(void)
 }
 
 #ifdef USE_FULL_ASSERT
-/**
+/
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
   * @param  file: pointer to the source file name
