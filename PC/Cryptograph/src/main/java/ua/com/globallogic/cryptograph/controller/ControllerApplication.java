@@ -14,6 +14,7 @@ import ua.com.globallogic.cryptograph.utils.FileSelection;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class ControllerApplication {
@@ -129,15 +130,17 @@ public class ControllerApplication {
 
     @FXML
     private void encrypt() {
+
+        if (selectedFilePath.getFileSelection() == null) {
+            statusLabel.setText("Status: File selection is required");
+            return;
+        }
         File file = selectedFilePath.getFileSelection().getAbsoluteFile();
         final int BLOCK_SIZE = 32;
         List<byte[]> listOfByteArrays = new ArrayList<>();
-
         if (portChoiceBox.getValue() != null && !portChoiceBox.getValue().isEmpty()) {
             if (selectedPort != null && selectedPort.isOpen()) {
-                statusLabel.setText("Status: Encryption in progress...");
                 try (FileReader fileReader = new FileReader(file)) {
-
                     int character;
                     byte[] block = new byte[BLOCK_SIZE];
                     int index = 0;
@@ -152,10 +155,14 @@ public class ControllerApplication {
                     System.arraycopy(block, 0, block, 0, index);
                     listOfByteArrays.add(block);
 
-                    statusLabel.setText("blocks: " + listOfByteArrays.size());
+                    //statusLabel.setText("blocks: " + listOfByteArrays.size());
+                    byte[] acp = {108, (byte) listOfByteArrays.size()};
+                    selectedPort.writeBytes(acp, acp.length);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
             } else {
                 statusLabel.setText("Status: Port is not open. Connect to the port first.");
             }
@@ -166,6 +173,10 @@ public class ControllerApplication {
 
     @FXML
     private void decrypt() {
+        if (selectedFilePath.getFileSelection() == null) {
+            statusLabel.setText("Status: File selection is required");
+            return;
+        }
         File file = selectedFilePath.getFileSelection().getAbsoluteFile();
         if (portChoiceBox.getValue() != null && !portChoiceBox.getValue().isEmpty()) {
             if (selectedPort != null && selectedPort.isOpen()) {
