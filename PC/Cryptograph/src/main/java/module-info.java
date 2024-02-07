@@ -21,4 +21,6 @@ module ua.com.globallogic.cryptograph {
 
     opens ua.com.globallogic.cryptograph to javafx.fxml;
     exports ua.com.globallogic.cryptograph;
+    exports ua.com.globallogic.cryptograph.controller;
+    opens ua.com.globallogic.cryptograph.controller to javafx.fxml;
 }
