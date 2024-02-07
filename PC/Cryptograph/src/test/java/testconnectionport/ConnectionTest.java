@@ -14,47 +14,24 @@ public class ConnectionTest {
 
     @Test
     public void isDeviceConnected() throws Exception {
-
-        int BLOCK_SIZE = 32;
-        File file = new File("C:\\Users\\vot47\\Desktop\\file.txt");
-        List<byte[]> list = new ArrayList<>();
-
-        try (FileReader fileReader = new FileReader(file)) {
-            int character;
-            byte[] block = new byte[BLOCK_SIZE];
-            int index = 0;
-            while ((character = fileReader.read()) != -1) {
-                block[index++] = (byte) character;
-                if (index == BLOCK_SIZE) {
-                    list.add(block);
-                    block = new byte[BLOCK_SIZE];
-                    index = 0;
-                }
-            }
-            System.arraycopy(block, 0, block, 0, index);
-            list.add(block);
-
-
-            byte[] bytes = {108, (byte) list.size()};
-
-            SerialPort serialPort = SerialPort.getCommPort("COM3");
-            if (serialPort.openPort()) {
-                System.out.println("Port status: " + serialPort.isOpen());
-            }
-            serialPort.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);
-            serialPort.writeBytes(bytes, bytes.length);
-            serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 0, 0);
-            byte[] b = new byte[2];
-            int a = serialPort.readBytes(b, b.length);
-            System.out.println(a);
+        SerialPort serialPort = SerialPort.getCommPort("COM3");
+        serialPort.openPort();
+        System.out.println("Status port: " + serialPort.isOpen());
+        serialPort.setBaudRate(38400);
+        byte [] b = {105,97};
+        serialPort.writeBytes(b, b.length);
+        try {
             Thread.sleep(1000);
-            serialPort.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);
-            for (byte[] s : list) {
-                Thread.sleep(200);
-                serialPort.writeBytes(s, s.length);
-            }
-
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        byte [] b1 = new byte[2];
+        serialPort.readBytes(b1, b.length);
+        for(byte b321 : b1){
+            System.out.println((char) b321);
+        }
+
+        serialPort.closePort();
 
     }
 }

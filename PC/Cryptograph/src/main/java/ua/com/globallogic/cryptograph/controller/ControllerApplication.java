@@ -13,6 +13,7 @@ import ua.com.globallogic.cryptograph.utils.FileSelection;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -129,8 +130,7 @@ public class ControllerApplication {
     }
 
     @FXML
-    private void encrypt() {
-
+    private void encrypt() throws InterruptedException {
         if (selectedFilePath.getFileSelection() == null) {
             statusLabel.setText("Status: File selection is required");
             return;
@@ -152,17 +152,52 @@ public class ControllerApplication {
                             index = 0;
                         }
                     }
-                    System.arraycopy(block, 0, block, 0, index);
-                    listOfByteArrays.add(block);
 
-                    //statusLabel.setText("blocks: " + listOfByteArrays.size());
-                    byte[] acp = {108, (byte) listOfByteArrays.size()};
-                    selectedPort.writeBytes(acp, acp.length);
-
+                    if (index > 0) {
+                        System.arraycopy(block, 0, block, 0, index);
+                        listOfByteArrays.add(block);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                selectedPort.setBaudRate(38400);
+                byte blocks = 0;
+                if (listOfByteArrays.size() == 1) {
+                    blocks = 97;
+                } else if (listOfByteArrays.size() == 2) {
+                    blocks = 98;
+                } else if (listOfByteArrays.size() == 3) {
+                    blocks = 99;
+                } else {
+                    blocks = 100;
+                }
+                byte[] dataToSend = {105, blocks};
+                selectedPort.writeBytes(dataToSend, dataToSend.length);
+                Thread.sleep(1000);
 
+                byte[] receivedData = new byte[2];
+                int numBytesRead = selectedPort.readBytes(receivedData, receivedData.length);
+                System.out.println("Received: " + new String(receivedData));
+                Thread.sleep(1000);
+
+                for (int i = 0; i < listOfByteArrays.size(); i++) {
+                    selectedPort.writeBytes(listOfByteArrays.get(i), listOfByteArrays.get(i).length);
+                    Thread.sleep(1000);
+                }
+                Thread.sleep(1000);
+
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < listOfByteArrays.size(); i++) {
+                    byte[] receivedBytes = new byte[32];
+                    numBytesRead = selectedPort.readBytes(receivedBytes, receivedBytes.length);
+                    Thread.sleep(1000);
+                    stringBuilder.append(new String(receivedBytes));
+                }
+                try (FileWriter fileWriter = new FileWriter(file)) {
+                    fileWriter.write(stringBuilder.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 statusLabel.setText("Status: Port is not open. Connect to the port first.");
             }
@@ -172,15 +207,95 @@ public class ControllerApplication {
     }
 
     @FXML
-    private void decrypt() {
+    private void decrypt() throws InterruptedException {
         if (selectedFilePath.getFileSelection() == null) {
             statusLabel.setText("Status: File selection is required");
             return;
         }
         File file = selectedFilePath.getFileSelection().getAbsoluteFile();
+        final int BLOCK_SIZE = 32;
+
         if (portChoiceBox.getValue() != null && !portChoiceBox.getValue().isEmpty()) {
             if (selectedPort != null && selectedPort.isOpen()) {
-                statusLabel.setText("Status: Decryption in progress...");
+                List<byte[]> listOfByteArrays = new ArrayList<>();
+                try (FileReader fileReader = new FileReader(file)) {
+                    int character;
+                    byte[] block = new byte[BLOCK_SIZE];
+                    int index = 0;
+                    while ((character = fileReader.read()) != -1 && listOfByteArrays.size() < 4) {
+                        block[index++] = (byte) character;
+                        if (index == BLOCK_SIZE) {
+                            listOfByteArrays.add(block);
+                            block = new byte[BLOCK_SIZE];
+                            index = 0;
+                        }
+                    }
+                    if (index > 0) {
+                        System.arraycopy(block, 0, block, 0, index);
+                        listOfByteArrays.add(block);
+                    }
+
+                    System.out.println(listOfByteArrays.size());
+                    for (byte[] s : listOfByteArrays) {
+                        System.out.println(Arrays.toString(s));
+                        System.out.println(s.length);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                SerialPort serialPort = SerialPort.getCommPort("COM3");
+                if (!serialPort.openPort()) {
+                    System.err.println("Failed to open port.");
+                    return;
+                }
+                System.out.println("Port status: " + (selectedPort.isOpen() ? "open" : "closed"));
+
+                selectedPort.setBaudRate(38400);
+
+                byte blocks = 0;
+                if (listOfByteArrays.size() == 1) {
+                    blocks = 97;
+                } else if (listOfByteArrays.size() == 2) {
+                    blocks = 98;
+                } else if (listOfByteArrays.size() == 3) {
+                    blocks = 99;
+                } else {
+                    blocks = 100;
+                }
+                System.out.println(blocks);
+
+//105//117
+                byte[] dataToSend = {117, blocks};
+                selectedPort.writeBytes(dataToSend, dataToSend.length);
+                Thread.sleep(1000);
+
+                byte[] receivedData = new byte[2];
+                int numBytesRead = serialPort.readBytes(receivedData, receivedData.length);
+                System.out.println("Received: " + new String(receivedData));
+                Thread.sleep(1000);
+
+
+                for (int i = 0; i < listOfByteArrays.size(); i++) {
+                    serialPort.writeBytes(listOfByteArrays.get(i), listOfByteArrays.get(i).length);
+                    Thread.sleep(1000);
+                }
+                Thread.sleep(1000);
+                String stringBuilder = "";
+                for (int i = 0; i < listOfByteArrays.size(); i++) {
+                    byte[] receivedBytes = new byte[32];
+                    numBytesRead = serialPort.readBytes(receivedBytes, receivedBytes.length);
+                    Thread.sleep(1000);
+                    stringBuilder += new String(receivedBytes);
+                }
+                System.out.println(stringBuilder);
+
+
+                try (FileWriter fileWriter = new FileWriter(file)) {
+                    fileWriter.write(stringBuilder);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             } else {
                 statusLabel.setText("Status: Port is not open. Connect to the port first.");
