@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f851179f-aec4-430e-a1c2-3dfc77fb0922" name="Changes" comment="check-sum-test">
+    <list default="true" id="f851179f-aec4-430e-a1c2-3dfc77fb0922" name="Changes" comment="test-device-connected">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/CryptographApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/CryptographApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/controller/ControllerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/controller/ControllerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/utils/CryptoUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/utils/CryptoUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ua/com/globallogic/cryptograph/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ua/com/globallogic/cryptograph/hello-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/testconnectionport/CheckSumTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testconnectionport/CheckSumTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/testconnectionport/CheckSumTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/testconnectionport/ConnectionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testconnectionport/ConnectionTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +64,7 @@
     "Application.YourClass.executor": "Run",
     "Application.ua.com.globallogic.cryptograph.utils.Test.executor": "Run",
     "JUnit.CheckSumTest.test.executor": "Run",
+    "JUnit.ConnectionTest.isDeviceConnected.executor": "Run",
     "JUnit.FileSelectionTest (1).executor": "Run",
     "JUnit.FileSelectionTest.executor": "Run",
     "JUnit.FileSelectionTest.testChooseFile.executor": "Run",
@@ -105,7 +104,7 @@
       <recent name="ua.com.globallogic.cryptograph.utils.miscellaneous" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CryptoUtils">
+  <component name="RunManager" selected="Application.CryptographApplication">
     <configuration name="CryptoUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ua.com.globallogic.cryptograph.utils.CryptoUtils" />
       <module name="Cryptograph" />
@@ -132,19 +131,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ua.com.globallogic.cryptograph.utils.Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ua.com.globallogic.cryptograph.utils.Test" />
-      <module name="Cryptograph" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ua.com.globallogic.cryptograph.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="CheckSumTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Cryptograph" />
       <extension name="coverage">
@@ -156,6 +142,22 @@
       <option name="PACKAGE_NAME" value="testconnectionport" />
       <option name="MAIN_CLASS_NAME" value="testconnectionport.CheckSumTest" />
       <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConnectionTest.isDeviceConnected" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Cryptograph" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="testconnectionport.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="testconnectionport" />
+      <option name="MAIN_CLASS_NAME" value="testconnectionport.ConnectionTest" />
+      <option name="METHOD_NAME" value="isDeviceConnected" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -178,18 +180,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.CryptoUtils" />
-      <item itemvalue="Application.ua.com.globallogic.cryptograph.utils.Test" />
       <item itemvalue="Application.CryptographApplication" />
+      <item itemvalue="JUnit.ConnectionTest.isDeviceConnected" />
       <item itemvalue="JUnit.CheckSumTest.test" />
       <item itemvalue="JUnit.SerialPortConnectionTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.CryptoUtils" />
         <item itemvalue="Application.CryptographApplication" />
+        <item itemvalue="JUnit.ConnectionTest.isDeviceConnected" />
+        <item itemvalue="Application.CryptoUtils" />
         <item itemvalue="JUnit.CheckSumTest.test" />
         <item itemvalue="JUnit.SerialPortConnectionTest" />
-        <item itemvalue="Application.ua.com.globallogic.cryptograph.utils.Test" />
       </list>
     </recent_temporary>
   </component>
@@ -223,7 +225,9 @@
       <workItem from="1707056685756" duration="13305000" />
       <workItem from="1707099288984" duration="193000" />
       <workItem from="1707134246629" duration="8306000" />
-      <workItem from="1707226941889" duration="14340000" />
+      <workItem from="1707226941889" duration="15790000" />
+      <workItem from="1707271826050" duration="1520000" />
+      <workItem from="1707316553793" duration="11487000" />
     </task>
     <task id="LOCAL-00001" summary="Setup-application-environment">
       <option name="closed" value="true" />
@@ -265,7 +269,31 @@
       <option name="project" value="LOCAL" />
       <updated>1707156704750</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Updated UI design">
+      <option name="closed" value="true" />
+      <created>1707269711923</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1707269711923</updated>
+    </task>
+    <task id="LOCAL-00007" summary="remove CryptoUtils">
+      <option name="closed" value="true" />
+      <created>1707270220420</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1707270220420</updated>
+    </task>
+    <task id="LOCAL-00008" summary="test-device-connected">
+      <option name="closed" value="true" />
+      <created>1707321923254</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1707321923254</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -289,6 +317,9 @@
     <MESSAGE value="update application design" />
     <MESSAGE value="update" />
     <MESSAGE value="check-sum-test" />
-    <option name="LAST_COMMIT_MESSAGE" value="check-sum-test" />
+    <MESSAGE value="Updated UI design" />
+    <MESSAGE value="remove CryptoUtils" />
+    <MESSAGE value="test-device-connected" />
+    <option name="LAST_COMMIT_MESSAGE" value="test-device-connected" />
   </component>
 </project>
