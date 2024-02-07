@@ -19,10 +19,10 @@ public class CryptographApplication extends Application {
         Application.setUserAgentStylesheet(STYLESHEET_CASPIAN);
         Parent root = FXMLLoaderUtils.getRoot();
 
-
         stage.setTitle("Cryptograph");
-        stage.setScene(new Scene(root, 671, 483));
+        stage.setScene(new Scene(root, 800, 483));
 
+        stage.setResizable(false);
 
         stage.show();
     }

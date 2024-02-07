@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import ua.com.globallogic.cryptograph.utils.FileSelection;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
 
 public class ControllerApplication {
 
@@ -29,6 +32,12 @@ public class ControllerApplication {
 
     @FXML
     private Label statusLabel;
+
+    @FXML
+    private Button encryptButton;
+
+    @FXML
+    private Button decryptButton;
 
     private SerialPort selectedPort;
     private FileChooser fileChooser;
@@ -50,6 +59,11 @@ public class ControllerApplication {
         });
 
         disconnectButton.setOnAction(e -> disconnectPort());
+
+        chooseFileButton.setOnAction(e -> chooseFile());
+
+        encryptButton.setDisable(true);
+        decryptButton.setDisable(true);
 
         fileChooser = new FileChooser();
     }
@@ -84,6 +98,8 @@ public class ControllerApplication {
 
         if (isConnected) {
             statusLabel.setText("Status: Connected to port: " + portName);
+            encryptButton.setDisable(false);
+            decryptButton.setDisable(false);
         } else {
             statusLabel.setText("Status: Failed to connect to the port " + portName);
         }
@@ -96,7 +112,6 @@ public class ControllerApplication {
             selectedPort.closePort();
             statusLabel.setText("Status: Disconnected from the port:" + selectedPort.getSystemPortName());
         }
-
         disableConnectDisconnectButtons(false);
     }
 
@@ -110,5 +125,58 @@ public class ControllerApplication {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text Files", "*.txt")
         );
+    }
+
+    @FXML
+    private void encrypt() {
+        File file = selectedFilePath.getFileSelection().getAbsoluteFile();
+        final int BLOCK_SIZE = 32;
+        List<byte[]> listOfByteArrays = new ArrayList<>();
+
+        if (portChoiceBox.getValue() != null && !portChoiceBox.getValue().isEmpty()) {
+            if (selectedPort != null && selectedPort.isOpen()) {
+                statusLabel.setText("Status: Encryption in progress...");
+                try (FileReader fileReader = new FileReader(file)) {
+
+                    int character;
+                    byte[] block = new byte[BLOCK_SIZE];
+                    int index = 0;
+                    while ((character = fileReader.read()) != -1) {
+                        block[index++] = (byte) character;
+                        if (index == BLOCK_SIZE) {
+                            listOfByteArrays.add(block);
+                            block = new byte[BLOCK_SIZE];
+                            index = 0;
+                        }
+                    }
+                    System.arraycopy(block, 0, block, 0, index);
+                    listOfByteArrays.add(block);
+
+                    statusLabel.setText("blocks: " + listOfByteArrays.size());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                statusLabel.setText("Status: Port is not open. Connect to the port first.");
+            }
+        } else {
+            statusLabel.setText("Status: Select a port before encrypting");
+        }
+    }
+
+    @FXML
+    private void decrypt() {
+        File file = selectedFilePath.getFileSelection().getAbsoluteFile();
+        if (portChoiceBox.getValue() != null && !portChoiceBox.getValue().isEmpty()) {
+            if (selectedPort != null && selectedPort.isOpen()) {
+                statusLabel.setText("Status: Decryption in progress...");
+
+            } else {
+                statusLabel.setText("Status: Port is not open. Connect to the port first.");
+            }
+        } else {
+            statusLabel.setText("Status: Select a port before decrypting");
+        }
+
     }
 }
