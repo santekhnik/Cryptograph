@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f851179f-aec4-430e-a1c2-3dfc77fb0922" name="Changes" comment="test-device-connected">
+    <list default="true" id="f851179f-aec4-430e-a1c2-3dfc77fb0922" name="Changes" comment="device-connected">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/controller/ControllerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ua/com/globallogic/cryptograph/controller/ControllerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/testconnectionport/CheckSumTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/testconnectionport/ConnectionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testconnectionport/ConnectionTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +225,7 @@
       <workItem from="1707134246629" duration="8306000" />
       <workItem from="1707226941889" duration="15790000" />
       <workItem from="1707271826050" duration="1520000" />
-      <workItem from="1707316553793" duration="11487000" />
+      <workItem from="1707316553793" duration="14074000" />
     </task>
     <task id="LOCAL-00001" summary="Setup-application-environment">
       <option name="closed" value="true" />
@@ -293,7 +291,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707321923254</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="device-connected">
+      <option name="closed" value="true" />
+      <created>1707348495832</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1707348495832</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,6 +326,7 @@
     <MESSAGE value="Updated UI design" />
     <MESSAGE value="remove CryptoUtils" />
     <MESSAGE value="test-device-connected" />
-    <option name="LAST_COMMIT_MESSAGE" value="test-device-connected" />
+    <MESSAGE value="device-connected" />
+    <option name="LAST_COMMIT_MESSAGE" value="device-connected" />
   </component>
 </project>

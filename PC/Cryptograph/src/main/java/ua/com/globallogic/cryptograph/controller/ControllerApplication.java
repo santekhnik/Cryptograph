@@ -244,13 +244,6 @@ public class ControllerApplication {
                     e.printStackTrace();
                 }
 
-                SerialPort serialPort = SerialPort.getCommPort("COM3");
-                if (!serialPort.openPort()) {
-                    System.err.println("Failed to open port.");
-                    return;
-                }
-                System.out.println("Port status: " + (selectedPort.isOpen() ? "open" : "closed"));
-
                 selectedPort.setBaudRate(38400);
 
                 byte blocks = 0;
@@ -265,34 +258,31 @@ public class ControllerApplication {
                 }
                 System.out.println(blocks);
 
-//105//117
                 byte[] dataToSend = {117, blocks};
                 selectedPort.writeBytes(dataToSend, dataToSend.length);
                 Thread.sleep(1000);
 
                 byte[] receivedData = new byte[2];
-                int numBytesRead = serialPort.readBytes(receivedData, receivedData.length);
+                int numBytesRead = selectedPort.readBytes(receivedData, receivedData.length);
                 System.out.println("Received: " + new String(receivedData));
                 Thread.sleep(1000);
 
-
                 for (int i = 0; i < listOfByteArrays.size(); i++) {
-                    serialPort.writeBytes(listOfByteArrays.get(i), listOfByteArrays.get(i).length);
+                    selectedPort.writeBytes(listOfByteArrays.get(i), listOfByteArrays.get(i).length);
                     Thread.sleep(1000);
                 }
                 Thread.sleep(1000);
-                String stringBuilder = "";
+                StringBuilder stringBuilder = new StringBuilder();
                 for (int i = 0; i < listOfByteArrays.size(); i++) {
                     byte[] receivedBytes = new byte[32];
-                    numBytesRead = serialPort.readBytes(receivedBytes, receivedBytes.length);
+                    numBytesRead = selectedPort.readBytes(receivedBytes, receivedBytes.length);
                     Thread.sleep(1000);
-                    stringBuilder += new String(receivedBytes);
+                    stringBuilder.append(new String(receivedBytes));
                 }
                 System.out.println(stringBuilder);
 
-
                 try (FileWriter fileWriter = new FileWriter(file)) {
-                    fileWriter.write(stringBuilder);
+                    fileWriter.write(stringBuilder.toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -303,6 +293,6 @@ public class ControllerApplication {
         } else {
             statusLabel.setText("Status: Select a port before decrypting");
         }
-
     }
+
 }
